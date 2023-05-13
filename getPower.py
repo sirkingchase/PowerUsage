@@ -36,13 +36,3 @@ def getPowerUsage(start, end):
 
     with open(os.path.join(os.getcwd(), fileName), 'wb') as fd:
         fd.write(r.content)
-
-start = datetime.today().replace(day=1) #first day of month
-end = datetime.today() + timedelta(days=1)
-
-#end = (start + timedelta(days=32)).replace(day=1) #first day of next month
-
-print("Start: " + start.strftime('%Y-%m-%d'))
-print("End: " + end.strftime('%Y-%m-%d'))
-print("\n")
-getPowerUsage(start, end)

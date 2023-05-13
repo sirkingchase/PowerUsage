@@ -8,22 +8,6 @@ import glob
 import pytz
 cst = pytz.timezone('US/Central')
 
-parsed_schema = schema.load_schema("pu.avsc")
-
-#{
-#   "type" : "record",
-#   "namespace" : "Power",
-#   "name" : "Usage",
-#   "fields" : [
-#      { "name" : "Epoch",
-#        "type" : "long", "default": 0 },
-#      { "name" : "kwh",
-#        "type" : "double", "default": 0 },
-#      { "name" : "DateTime",
-#        "type" : "string", "default": "" }
-#   ]
-#}
-
 def csvToJsonPower(f):
     print (f)
     recordArr = []
@@ -41,18 +25,17 @@ def csvToJsonPower(f):
                 recordArr.append(record)
     return recordArr
 
-#parsed_schema = parse_schema(json.dumps(pu_avsc_json))
-files = glob.glob('pu_[0-9]*-[0-9]*.csv')
-#files = ['pu_20230401-20230501.csv']
 
-for f in files:
-  pu = csvToJsonPower(f)
-  start = datetime.fromtimestamp(pu[0]["Epoch"])
-  end = datetime.fromtimestamp(pu[-1]["Epoch"])
-  fileName = "pu_" + start.strftime("%Y%m%d") + "-" + (end).strftime("%Y%m%d") + ".avro"
-  with open(fileName, 'wb') as out:
-      writer(out, parsed_schema, pu )
-      print(fileName)
+#files = glob.glob('pu_[0-9]*-[0-9]*.csv')
+#
+#for f in files:
+#  pu = csvToJsonPower(f)
+#  start = datetime.fromtimestamp(pu[0]["Epoch"])
+#  end = datetime.fromtimestamp(pu[-1]["Epoch"])
+#  fileName = "pu_" + start.strftime("%Y%m%d") + "-" + (end).strftime("%Y%m%d") + ".avro"
+#  with open(fileName, 'wb') as out:
+#      writer(out, parsed_schema, pu )
+#      print(fileName)
 
 ## Reading
 #with open(fileName, 'rb') as fo:
