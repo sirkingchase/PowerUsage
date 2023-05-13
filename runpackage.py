@@ -10,8 +10,7 @@ from datetime import datetime, timedelta
 import transformCSV
 import getPower
 
-def processDirCSVs():
-    files = glob.glob('pu_[0-9]*-[0-9]*.csv')
+def pu_csv2Avro(files):
     parsed_schema = schema.load_schema("pu.avsc")
     for f in files:
       pu = transformCSV.csvToJsonPower(f)
@@ -23,10 +22,24 @@ def processDirCSVs():
           print(fileName)
 
 def getCurrentMonthsUsage():
-    start = datetime.today().replace(day=1) #first day of month
-    end = datetime.today() + timedelta(days=1)
+    start = ( datetime.today().replace(day=1) ) + timedelta(days=-1) #last day of last month
+    end = datetime.today() + timedelta(days=2)
     print("Start: " + start.strftime('%Y-%m-%d'))
     print("End: " + end.strftime('%Y-%m-%d'))
     print("\n")
+    return getPower.getPowerUsage(start, end)
+
+def getSpecficMonthsUsage(gMonth, gYear):
+    start = datetime.today().replace(day=1, month=gMonth, year=gYear) #first day of month
+    end = (start + timedelta(days=32)).replace(day=2)
+    print("Start: " + start.strftime('%Y-%m-%d'))
+    print("End: " + end.strftime('%Y-%m-%d'))
     getPower.getPowerUsage(start, end)
 
+for i in range(1, 6):
+    print(str(i) + ' 2023')
+    getSpecficMonthsUsage(i, 2023)
+
+#pu_csv2Avro([file])
+
+#files = glob.glob('pu_[0-9]*-[0-9]*.csv')

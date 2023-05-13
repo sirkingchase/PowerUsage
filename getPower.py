@@ -24,6 +24,8 @@ def getPowerUsage(start, end):
     + '&EndDateTime=' + end.strftime('%Y-%m-%dT00:00:00') \
     + '&ObjectId=D070FE3B29AFE6D9DF1D918616262AB1&Type=all&utilType=E&View=usage'
     
+    print(p)
+
     r = requests.get(p, cookies = c, verify = False)#download the CSV
     s = r.content
     powerRange = [i for i in range(0,26)]
@@ -32,7 +34,6 @@ def getPowerUsage(start, end):
     lastDate = data.iloc[-2,0]#get last date in csv file
     dt_object = datetime.strptime(lastDate, '%d %b %Y')#store as dt object
     fileName = "pu_" + start.strftime("%Y%m%d") + "-" + dt_object.strftime("%Y%m%d") + ".csv"
-    print(fileName)
-
     with open(os.path.join(os.getcwd(), fileName), 'wb') as fd:
         fd.write(r.content)
+    return fileName
