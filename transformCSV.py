@@ -49,7 +49,7 @@ for f in files:
   pu = csvToJsonPower(f)
   start = datetime.fromtimestamp(pu[0]["Epoch"])
   end = datetime.fromtimestamp(pu[-1]["Epoch"])
-  fileName = "pu_" + start.strftime("%Y%m%d") + "-" + (end + timedelta(days=1)).strftime("%Y%m%d") + ".avro"
+  fileName = "pu_" + start.strftime("%Y%m%d") + "-" + (end).strftime("%Y%m%d") + ".avro"
   with open(fileName, 'wb') as out:
       writer(out, parsed_schema, pu )
       print(fileName)
