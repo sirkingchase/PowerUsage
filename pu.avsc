@@ -1,0 +1,13 @@
+{
+   "type" : "record",
+   "namespace" : "Power",
+   "name" : "Usage",
+   "fields" : [
+      { "name" : "Epoch",
+        "type" : "long", "default": 0 },
+      { "name" : "kwh",
+        "type" : "double", "default": 0 },
+      { "name" : "DateTime",
+        "type" : "string", "default": "" }
+   ]
+}
